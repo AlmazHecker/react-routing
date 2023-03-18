@@ -11,10 +11,7 @@ export interface ProviderProps {
   routes: Route[];
 }
 
-export const RouterContextProvider: FC<ProviderProps> = ({
-  children,
-  routes,
-}) => {
+const RouterContextProvider: FC<ProviderProps> = ({ children, routes }) => {
   const [state, dispatch] = useReducer(reducer, { routes, location: '' });
   return (
     <RouterContext.Provider value={{ ...state, dispatch }}>
@@ -22,3 +19,5 @@ export const RouterContextProvider: FC<ProviderProps> = ({
     </RouterContext.Provider>
   );
 };
+
+export default RouterContextProvider;

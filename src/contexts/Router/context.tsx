@@ -11,8 +11,21 @@ export interface ProviderProps {
   routes: Route[];
 }
 
+// type ObjectRoutes = {
+//   [key: string]: React.ReactNode;
+// };
+
+// const renderComponent = () => {
+//   const objectRoutes: ObjectRoutes = routes.reduce((acc, el) => {
+//     return { ...acc, [el.path]: el.component };
+//   }, {});
+
+//   return objectRoutes?.[window.location.pathname] || '';
+// };
+
 const RouterProvider: FC<ProviderProps> = ({ children, routes }) => {
   const [state, dispatch] = useReducer(reducer, { routes, location: '' });
+
   return (
     <RouterContext.Provider value={{ ...state, dispatch }}>
       {children}

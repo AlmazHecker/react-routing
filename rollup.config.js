@@ -30,6 +30,7 @@ export default [
       typescript({ tsconfig: './tsconfig.json' }),
       terser(),
     ],
+    external: ['react', 'react-dom'],
   },
   {
     input: 'dist/esm/types/index.d.ts',

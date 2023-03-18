@@ -19,9 +19,7 @@ export const RouterContextProvider: FC<ProviderProps> = ({
     throw new Error('Routes are not provided!');
   }
 
-  const [state, dispatch] = useReducer(reducer, {
-    routes,
-  });
+  const [state, dispatch] = useReducer(reducer, { routes, location: '' });
   return (
     <RouterContext.Provider value={{ ...state, dispatch }}>
       {children}

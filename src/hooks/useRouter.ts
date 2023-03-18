@@ -1,1 +1,1 @@
-export const useLocation = () => {};
+export const useRouter = () => {};

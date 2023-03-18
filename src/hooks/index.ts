@@ -1,2 +1,2 @@
 export { useLocation } from './useLocation';
-export { useRoutes } from './useRoutes';
+export { useRouter } from './useRouter';

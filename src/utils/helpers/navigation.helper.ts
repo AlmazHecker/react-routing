@@ -26,11 +26,11 @@ class Navigation {
 
   static replace = (path: NavigationOptions) => {
     if (typeof path === 'string') {
-      return window.location.replace(path);
+      return window.history.replaceState(null, '', path);
     }
     if (typeof path === 'object') {
       const url = this.generateUrlWithParams(path);
-      return window.location.replace(url);
+      return window.history.replaceState(null, '', url);
     }
   };
 
@@ -41,12 +41,28 @@ class Navigation {
     return window.history.go(page);
   };
 
-  private static setPath = (path: string) => {
-    window.location.href = path;
+  static setPath = (path: string) => {
+    return window.history.pushState(null, '', path);
   };
 
-  private static generateUrlWithParams = (url: UrlWithParams) => {
-    const newUrl = new URL(url.path);
+  public static getPath = () => {
+    return window.location;
+  };
+
+  static generateUrlWithParams = (url: UrlWithParams) => {
+    let newUrl;
+
+    if (url.path.length !== 0) {
+      if (url.path[0] === '/') {
+        newUrl = new URL(`${window.location.origin}${url.path}`);
+      } else {
+        newUrl = new URL(window.location.href);
+      }
+    } else {
+      newUrl = new URL(`${window.location.href}/${url.path}`);
+    }
+
+    newUrl.search = '';
 
     if (url.query) {
       for (const item in url.query) {

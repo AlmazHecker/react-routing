@@ -1,2 +1,2 @@
-export { useLocation } from './useLocation';
-export { useRouter } from './useRouter';
+export { default as useLocation } from './useLocation';
+export { default as useRouter } from './useRouter';

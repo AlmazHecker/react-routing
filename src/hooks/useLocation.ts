@@ -1,1 +1,3 @@
-export const useLocation = () => {};
+const useLocation = () => {};
+
+export default useLocation;

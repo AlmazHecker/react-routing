@@ -1,11 +1,11 @@
-import React, { FC, Provider } from 'react';
+import React, { FC } from 'react';
 
 export interface ProviderProps {
-  children: string;
+  children: React.ReactNode;
 }
 
 const Provider: FC<ProviderProps> = (children) => {
-  return <button>{children}</button>;
+  return <>{children}</>;
 };
 
 export default Provider;

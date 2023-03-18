@@ -5,7 +5,9 @@ export interface ProviderProps {
 }
 
 const Provider: FC<ProviderProps> = ({ children }) => {
-  return <>{children}</>;
+  console.log(children);
+
+  return <div>{children}</div>;
 };
 
 export default Provider;

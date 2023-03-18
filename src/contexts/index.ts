@@ -1,1 +1,1 @@
-export { default as RouterProvider } from './Router/context';
+export { RouterProvider } from './Router/context';

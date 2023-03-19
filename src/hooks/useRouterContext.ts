@@ -1,8 +1,11 @@
-import { RouterInitState } from './../contexts/Router/state';
 import { RouterContext } from './../contexts/Router/context';
 import { useContext } from 'react';
 
-export const useRouterContext = (): RouterInitState | null => {
-  const state = useContext(RouterContext);
-  return state;
+export const useRouterContext = () => {
+  const context = useContext(RouterContext);
+
+  if (!context) {
+    throw new Error(`You can't use Router outside of RouterProvider`);
+  }
+  return context;
 };

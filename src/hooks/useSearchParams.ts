@@ -1,3 +1,4 @@
+import { generateUrlWithParams } from './../utils/helpers/url.helper';
 import Navigation from '../utils/helpers/navigation.helper';
 
 export type SearchParam = {
@@ -10,11 +11,13 @@ export type UseSearchParams = () => [
 ];
 
 const useSearchParams: UseSearchParams = () => {
+  const navigation = new Navigation({});
+
   const params = new URLSearchParams(window.location.search.slice(1));
 
   const setParams = (params: SearchParam) => {
-    const url = Navigation.generateUrlWithParams({ path: '', query: params });
-    Navigation.setPath(url.href);
+    const url = generateUrlWithParams({ path: '', query: params });
+    navigation.setPath(url.href);
   };
 
   return [params, setParams];

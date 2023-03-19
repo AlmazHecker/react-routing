@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { useRouterContext } from '../../hooks/useRouterContext';
 import { Route } from '../../shared/types';
 
 export interface RoutesProps {
@@ -10,12 +11,16 @@ type ObjectRoutes = {
 };
 
 const Routes: FC<RoutesProps> = ({ routes }) => {
+  const { location } = useRouterContext();
+
   const renderComponent = () => {
     const objectRoutes: ObjectRoutes = routes.reduce((acc, el) => {
       return { ...acc, [el.path]: el.component };
     }, {});
 
-    return objectRoutes?.[window.location.pathname] || '';
+    console.log(objectRoutes, location, 'BIBLEOTEKA!');
+
+    return objectRoutes?.[location] || '';
   };
   return <>{renderComponent()}</>;
 };

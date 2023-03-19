@@ -4,7 +4,7 @@ import { Dispatch } from 'react';
 
 export type RouterInitState = {
   routes: Route[];
-  location: string;
+  location: URL;
 
   dispatch: Dispatch<RouterActions>;
 };

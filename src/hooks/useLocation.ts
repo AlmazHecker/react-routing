@@ -1,22 +1,19 @@
 import { setLocation } from './../contexts/Router/reducer';
 import { useRouterContext } from './useRouterContext';
-import Navigation from '../utils/helpers/navigation.helper';
 
 export type UseLocation = () => {
-  location: Location;
-  //   query: { [key: string]: string };
+  location: URL;
 };
 
 const useLocation: UseLocation = () => {
-  const { dispatch } = useRouterContext();
+  const { dispatch, location } = useRouterContext();
 
-  const dispatchMiddleware = (path: string) => {
+  const dispatchMiddleware = (path: URL) => {
     return dispatch(setLocation(path));
   };
 
-  const navigation = new Navigation({ middleware: dispatchMiddleware });
   return {
-    location: navigation.getPath(),
+    location,
     // query:
   };
 };

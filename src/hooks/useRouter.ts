@@ -1,11 +1,12 @@
+import { useMemo } from 'react';
 import { setLocation } from './../contexts/Router/reducer';
 import { useRouterContext } from './useRouterContext';
-import { NavigationOptions } from './../utils/helpers/navigation.helper';
+import { PathTypes, UrlWithParams } from './../utils/helpers/navigation.helper';
 import Navigation from '../utils/helpers/navigation.helper';
 
 export type UseRouter = () => {
-  push: (options: NavigationOptions) => void;
-  replace: (options: NavigationOptions) => void;
+  push: (options: PathTypes) => void;
+  replace: (options: string | UrlWithParams) => void;
   go: (pageNum: number) => void;
   back: () => void;
 };
@@ -13,11 +14,13 @@ export type UseRouter = () => {
 const useRouter: UseRouter = () => {
   const { dispatch } = useRouterContext();
 
-  const dispatchMiddleware = (path: string) => {
+  const dispatchMiddleware = (path: URL) => {
     return dispatch(setLocation(path));
   };
 
-  const navigation = new Navigation({ middleware: dispatchMiddleware });
+  const navigation = useMemo(() => {
+    return new Navigation({ middleware: dispatchMiddleware });
+  }, []);
 
   return {
     push: navigation.push,

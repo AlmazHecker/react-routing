@@ -2,9 +2,9 @@ export enum ActionType {
   SetLocation,
 }
 
-export type SetLocation = (val: string) => {
+export type SetLocation = (val: URL) => {
   type: ActionType.SetLocation;
-  payload: string;
+  payload: URL;
 };
 
 export type RouterActions = ReturnType<SetLocation>;

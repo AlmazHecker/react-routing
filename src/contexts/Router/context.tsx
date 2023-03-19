@@ -14,7 +14,7 @@ export interface ProviderProps {
 const RouterProvider: FC<ProviderProps> = ({ children, routes }) => {
   const [state, dispatch] = useReducer(reducer, {
     routes,
-    location: '',
+    location: new URL(window.location.href),
     dispatch: () => null,
   });
 

@@ -20,7 +20,7 @@ const Routes: FC<RoutesProps> = ({ routes }) => {
 
     console.log(objectRoutes, location, 'BIBLEOTEKA!');
 
-    return objectRoutes?.[location] || '';
+    return objectRoutes?.[location.pathname] || '';
   };
   return <>{renderComponent()}</>;
 };

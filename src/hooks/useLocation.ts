@@ -1,21 +1,21 @@
-import { setLocation } from './../contexts/Router/reducer';
+import { Object } from './../utils/helpers/navigation.helper';
+import { getQueryParams } from './../utils/helpers/url.helper';
+import { useMemo } from 'react';
 import { useRouterContext } from './useRouterContext';
 
 export type UseLocation = () => {
   location: URL;
+  query: Object;
 };
 
 const useLocation: UseLocation = () => {
-  const { dispatch, location } = useRouterContext();
+  const { state } = useRouterContext();
 
-  const dispatchMiddleware = (path: URL) => {
-    return dispatch(setLocation(path));
-  };
+  const values = useMemo(() => {
+    return { location: state.location, query: getQueryParams(state.location) };
+  }, [state.location]);
 
-  return {
-    location,
-    // query:
-  };
+  return values;
 };
 
 export default useLocation;

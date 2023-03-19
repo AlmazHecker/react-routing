@@ -1,1 +1,1 @@
-export { default as Routes, RoutesProps } from './Routes/Routes';
+export { default as Routes, RoutesProps, Route } from './Routes/Routes';

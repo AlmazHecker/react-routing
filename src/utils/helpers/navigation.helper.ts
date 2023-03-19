@@ -1,61 +1,50 @@
 import { generateUrlWithParams, generateURL } from './url.helper';
 
+export type Object = {
+  [index: string]: any;
+};
+
 export type UrlWithParams = {
   path: string;
-  query?: { [k: string]: any };
+  query?: Object;
   replace?: boolean;
 };
 
 export type PathTypes = string | number | UrlWithParams;
 
-export type Middleware = (path: URL) => void;
+export const push = (path: PathTypes) => {
+  switch (typeof path) {
+    case 'string':
+      return setPath(generateURL(path));
 
-export interface NavigationParams {
-  middleware?: Middleware;
-}
+    case 'object':
+      return setPath(generateUrlWithParams(path));
 
-class Navigation {
-  middleware: Middleware | undefined;
+    case 'number':
+      return go(path);
 
-  constructor({ middleware }: NavigationParams) {
-    if (middleware) this.middleware = middleware;
+    default:
+      return null;
   }
+};
 
-  push = (path: PathTypes) => {
-    switch (typeof path) {
-      case 'string':
-        return this.setPath(generateURL(path));
+export const setPath = (url: URL) => {
+  window.history.pushState(null, '', url);
+  return url;
+};
 
-      case 'object':
-        return this.setPath(generateUrlWithParams(path));
+export const go = (page: number) => {
+  return window.history.go(page);
+};
 
-      case 'number':
-        return this.goTo(path);
+export const back = () => {
+  return window.history.back();
+};
 
-      default:
-        return null;
-    }
-  };
+export const replace = (path: UrlWithParams | string) => {
+  const options = typeof path === 'object' ? path : { path: path };
+  const url = generateUrlWithParams(options);
 
-  replace = (path: UrlWithParams | string) => {
-    const options = typeof path === 'object' ? path : { path: path };
-    const url = generateUrlWithParams(options);
-    if (this.middleware) this.middleware(url);
-
-    return window.history.replaceState(null, '', url.href);
-  };
-
-  setPath = (url: URL) => {
-    if (this.middleware) this.middleware(url);
-    return window.history.pushState(null, '', url);
-  };
-
-  back = () => {
-    return window.history.back();
-  };
-  goTo = (page: number) => {
-    return window.history.go(page);
-  };
-}
-
-export default Navigation;
+  window.history.replaceState(null, '', url.href);
+  return url;
+};

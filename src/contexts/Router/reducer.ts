@@ -1,10 +1,10 @@
+import { initialState } from './state';
 import { RouterActions, ActionType, SetLocation } from './actions';
-import { RouterInitState } from './state';
 
 export type ReducerType = (
-  state: RouterInitState,
+  state: typeof initialState,
   action: RouterActions
-) => RouterInitState;
+) => typeof initialState;
 
 export const reducer: ReducerType = (state, action) => {
   switch (action.type) {

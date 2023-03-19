@@ -1,6 +1,10 @@
-import React, { FC } from 'react';
+import React, { FC, useMemo } from 'react';
 import { useRouterContext } from '../../hooks/useRouterContext';
-import { Route } from '../../shared/types';
+
+export type Route = {
+  path: string;
+  component: React.ReactNode;
+};
 
 export interface RoutesProps {
   routes: Route[];
@@ -11,18 +15,18 @@ type ObjectRoutes = {
 };
 
 const Routes: FC<RoutesProps> = ({ routes }) => {
-  const { location } = useRouterContext();
+  const { state } = useRouterContext();
 
-  const renderComponent = () => {
-    const objectRoutes: ObjectRoutes = routes.reduce((acc, el) => {
-      return { ...acc, [el.path]: el.component };
-    }, {});
+  const renderComponent = useMemo(() => {
+    const objectRoutes: ObjectRoutes = {};
 
-    console.log(objectRoutes, location, 'BIBLEOTEKA!');
+    for (const i of routes) {
+      objectRoutes[i.path] = i.component;
+    }
 
-    return objectRoutes?.[location.pathname] || '';
-  };
-  return <>{renderComponent()}</>;
+    return objectRoutes?.[state.location.pathname] || null;
+  }, [state.location]);
+  return <>{renderComponent}</>;
 };
 
 export default Routes;

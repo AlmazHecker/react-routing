@@ -1,8 +1,14 @@
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { setLocation } from './../contexts/Router/reducer';
 import { useRouterContext } from './useRouterContext';
-import { PathTypes, UrlWithParams } from './../utils/helpers/navigation.helper';
-import Navigation from '../utils/helpers/navigation.helper';
+import {
+  back,
+  go,
+  PathTypes,
+  push,
+  replace,
+  UrlWithParams,
+} from './../utils/helpers/navigation.helper';
 
 export type UseRouter = () => {
   push: (options: PathTypes) => void;
@@ -14,20 +20,17 @@ export type UseRouter = () => {
 const useRouter: UseRouter = () => {
   const { dispatch } = useRouterContext();
 
-  const dispatchMiddleware = (path: URL) => {
-    return dispatch(setLocation(path));
-  };
-
-  const navigation = useMemo(() => {
-    return new Navigation({ middleware: dispatchMiddleware });
+  const handlePush = useCallback((url: PathTypes) => {
+    const newUrl = push(url);
+    if (newUrl) return dispatch(setLocation(newUrl as URL));
   }, []);
 
-  return {
-    push: navigation.push,
-    replace: navigation.replace,
-    go: navigation.goTo,
-    back: navigation.back,
-  };
+  const handleReplace = useCallback((url: UrlWithParams | string) => {
+    const newUrl: URL = replace(url);
+    return dispatch(setLocation(newUrl));
+  }, []);
+
+  return { push: handlePush, replace: handleReplace, go, back };
 };
 
 export default useRouter;

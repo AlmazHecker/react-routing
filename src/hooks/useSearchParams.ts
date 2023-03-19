@@ -1,7 +1,6 @@
-import { generateUrlWithParams } from './../utils/helpers/url.helper';
-import Navigation from '../utils/helpers/navigation.helper';
 import { useRouterContext } from './useRouterContext';
 import { useMemo } from 'react';
+import { push } from '../utils/helpers/navigation.helper';
 
 export type SearchParam = {
   [index: string]: any;
@@ -12,17 +11,15 @@ export type UseSearchParams = () => [
   setParams: (params: SearchParam) => void
 ];
 
-const navigation = new Navigation({});
-
 const useSearchParams: UseSearchParams = () => {
-  const { location } = useRouterContext();
+  const { state } = useRouterContext();
 
   const params = useMemo(() => {
-    return new URLSearchParams(location.search.slice(1));
+    return new URLSearchParams(state.location.search.slice(1));
   }, [location]);
 
   const setParams = (params: SearchParam) => {
-    return navigation.push({ path: '', query: params });
+    return push({ path: '', query: params });
   };
 
   return [params, setParams];

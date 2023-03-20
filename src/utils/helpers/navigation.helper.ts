@@ -1,12 +1,9 @@
+import { SearchParam } from './../../../dist/esm/types/hooks/useSearchParams.d';
 import { generateUrlWithParams, generateURL } from './url.helper';
-
-export type Object = {
-  [index: string]: any;
-};
 
 export type UrlWithParams = {
   path: string;
-  query?: Object;
+  query?: SearchParam;
   replace?: boolean;
 };
 

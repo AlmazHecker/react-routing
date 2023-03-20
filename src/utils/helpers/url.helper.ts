@@ -1,4 +1,5 @@
-import { UrlWithParams, Object } from './navigation.helper';
+import { SearchParam } from './../../../dist/esm/types/hooks/useSearchParams.d';
+import { UrlWithParams } from './navigation.helper';
 
 export type GenerateUrlWithParams = (url: UrlWithParams) => URL;
 export type GenerateURLObject = (url: string) => URL;
@@ -30,7 +31,7 @@ export const generateURL: GenerateURLObject = (url) => {
 };
 
 export const getQueryParams = (url: URL) => {
-  const queries: Object = {};
+  const queries: SearchParam = {};
   const params = new URLSearchParams(url.search);
 
   params.forEach((value, key) => (queries[key] = value));

@@ -1,11 +1,11 @@
-import { Object } from './../utils/helpers/navigation.helper';
+import { SearchParam } from './useSearchParams';
 import { getQueryParams } from './../utils/helpers/url.helper';
 import { useMemo } from 'react';
 import { useRouterContext } from './useRouterContext';
 
 export type UseLocation = () => {
   location: URL;
-  query: Object;
+  query: SearchParam;
 };
 
 const useLocation: UseLocation = () => {

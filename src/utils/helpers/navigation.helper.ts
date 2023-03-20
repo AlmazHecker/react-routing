@@ -1,4 +1,4 @@
-import { SearchParam } from './../../../dist/esm/types/hooks/useSearchParams.d';
+import { SearchParam } from './../../hooks/useSearchParams';
 import { generateUrlWithParams, generateURL } from './url.helper';
 
 export type UrlWithParams = {

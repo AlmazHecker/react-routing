@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 import { setLocation } from './../contexts/Router/reducer';
 import { useRouterContext } from './useRouterContext';
 import {

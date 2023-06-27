@@ -27,9 +27,9 @@ const routes = [
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes />
-    </BrowserRouter>
+    <RouterProvider>
+      <Routes routes={routes} />
+    </RouterProvider>
   );
 }
 ```

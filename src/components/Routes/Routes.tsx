@@ -20,8 +20,8 @@ const Routes: FC<RoutesProps> = ({ routes }) => {
   const renderComponent = useMemo(() => {
     const objectRoutes: ObjectRoutes = {};
 
-    for (const i of routes) {
-      objectRoutes[i.path] = i.component;
+    for (const route of routes) {
+      objectRoutes[route.path] = route.component;
     }
 
     return objectRoutes?.[state.location.pathname] || null;
